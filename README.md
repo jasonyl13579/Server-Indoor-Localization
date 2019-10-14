@@ -1,9 +1,8 @@
 # Server for Indoor Localization
 ## Install and activate env
 ```
-conda install -n [env_name] 
+conda env create -f freeze.yml -n [env_name] 
 source activate [env_name]
-pip install -r requirements.txt
 ```
 ## Create your own app.inn
 ```
@@ -39,16 +38,11 @@ command:
 * count -- count csi between time interval {startDate} and {endDate} in database {database}
 * delete -- delete csi between time interval {startDate} and {endDate} in database {database}
 * save -- save csi between time interval {startDate} and {endDate} in database {database} into .mat file
+* dump [filename] -- save csi between time interval {startDate} and {endDate} in database {database} into {filename}.db file
 
-## Using dump.py
+## Using server.py
 ```
-Usage: python dump.py
-```
-* save csi into between time interval {startDate} and {endDate} in database {database} into .db file
-
-## Using server_training.py
-```
-Usage: server_training.py [optional commands(-hsldp)]
+Usage: python server.py [optional commands(-hsldp)]
  [-h] help
  [-s] Enable prediction
  [-l] Enable global label

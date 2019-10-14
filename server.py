@@ -43,7 +43,7 @@ rps = [ \
 (75,15), (75,45), (75,75), (75,105), (75,135), (75,165), (75,195),\
 (105,15), (105,45), (105,75), (105,105), (105,135), (105,165), (105,195),\
 ]
-with open("database_normolize.db", "rb") as fp:   # Unpickling
+with open("example_normolize.db", "rb") as fp:   # Unpickling
     csi_db = pickle.load(fp)
 
 correlation = np.zeros((len(csi_db), 4))
@@ -215,11 +215,11 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.getopt(sys.argv[1:],"shldp:o",["port"])
     except getopt.GetoptError:
-        print ('Usage: server_training.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
+        print ('Usage: server.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print ('Usage: server_training.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
+            print ('Usage: server.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
             sys.exit()
         if opt == '-s':
             enable_prediction = True
