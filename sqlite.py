@@ -12,6 +12,7 @@ import io
 import sys
 from configparser import ConfigParser
 import os
+import pickle
 #conn = sqlite3.connect('Presence_Detection.db')
 database = 'PD_office_0910'
 startDate = "2019-05-30"
@@ -106,6 +107,7 @@ def delete_database():
     #c.execute("DELETE FROM PD WHERE perfomed_at BETWEEN '{sd}' AND '{ed}' AND time(perfomed_at) BETWEEN '{st}' AND '{et}'".format(sd=startDate,ed=endDate,st=startTime,et=endTime))
     c.execute("DELETE FROM PD WHERE perfomed_at BETWEEN '{sd}' AND '{ed}'".format(sd=startDate,ed=endDate))
     conn.commit()
+    print ("Delete database successfully.")
 def save_database():
     x = []
     y = []
@@ -123,15 +125,37 @@ def save_database():
     data['Count'] = count
     mat_path = 'data/training_data/data' + database +'.mat'    
     sio.savemat(mat_path, data)
+    print ("Save to file " + mat_path)
+def dump_database(db_name):
+    count = 0
+    c.execute("SELECT * FROM PD WHERE perfomed_at BETWEEN '{sd}' AND '{ed}' ".format(sd=startDate,ed=endDate))
+    csi_database = []
+    for row in c:
+        x_max = np.amax(row[0], axis=0)
+        x_min = np.amin(row[0], axis=0)
+        #x_normolize = (row[0] - x_min)/(x_max - x_min)
+        count = count + 1
+        csi_database.append((row[0],row[1]))        
+    with open(db_name +".db", "wb") as fp:   
+        pickle.dump(csi_database, fp)
+        print ("Dump:" + str(count))
+        print ("Save to file " + db_name + ".db")
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         command = sys.argv[1]
         if command == "create":
             create_table(conn)
-        if command == "count":
+        elif command == "count":
             count_database()
-        if command == "delete":
+        elif command == "delete":
             delete_database()
-        if command == "save":
+        elif command == "save":
             save_database()
+        elif command == "dump":
+            db = "csi"
+            if len(sys.argv) > 2:
+                db = sys.argv[2]
+            dump_database(db)
+        else:
+            print ("No such command.")
         conn.close()

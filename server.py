@@ -215,11 +215,11 @@ if __name__ == '__main__':
     try:
         opts, args = getopt.getopt(sys.argv[1:],"shldp:o",["port"])
     except getopt.GetoptError:
-        print ('Usage: server_training.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
+        print ('Usage: server.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print ('Usage: server_training.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
+            print ('Usage: server.py\n [-s] Enable prediction\n [-l] Enable global label\n [-d] Debug mode (Do not save data into database)\n [-p <port>] Port\n')
             sys.exit()
         if opt == '-s':
             enable_prediction = True
